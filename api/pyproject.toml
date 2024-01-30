@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "mydjangoportfolio"
+version = "0.1.0"
+description = "My portfolio made in Django. Made for practice and showcase of my skills."
+authors = ["Adam Boudník <boudnikadam@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.0.1"
+django-environ = "^0.11.2"
+django-cors-headers = "^4.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
