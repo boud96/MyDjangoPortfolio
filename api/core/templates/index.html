@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ person.first_name }} {{ person.last_name }}</h1>
+<p>{{ person.email }}</p>
+<img src="{{ person.headshot.url }}" alt="{{ person.first_name }}'s Headshot">
+
+<h2>Jobs</h2>
+{% for job in jobs %}
+<h3>{{ job.job_title }} - {{ job.company }}</h3>
+{% endfor %}
+
+<h2>Education</h2>
+{% for education in educations %}
+<h3>{{ education.degree }} - {{ education.institution }}</h3>
+{% endfor %}
+{% endblock %}

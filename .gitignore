@@ -10,3 +10,4 @@ static
 !/core/static/
 .npm_cache
 .poetry_cache
+/api/headshots/
