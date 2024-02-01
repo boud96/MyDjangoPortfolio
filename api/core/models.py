@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -66,6 +67,7 @@ class Education(models.Model):
 class TypeSkill(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=100)
+    order = models.IntegerField(unique=True, default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
         return self.title
@@ -76,9 +78,16 @@ class Skill(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()  # TODO RichTextField to allow bold, italic, underline, etc.
     type_skill = models.ForeignKey(TypeSkill, on_delete=models.CASCADE)
+    order = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = ['-title']
+
+    def save(self, *args, **kwargs):
+        obj = Skill.objects.filter(type_skill=self.type_skill).filter(order=self.order)
+        if obj.exists():
+            raise ValueError("Skill with this order already exists")
+        super().save(*args, **kwargs)

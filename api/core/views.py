@@ -12,7 +12,7 @@ class IndexView(View):
 
         jobs = Job.objects.all()
         educations = Education.objects.all()
-        skills = Skill.objects.all()
+        skills = Skill.objects.all().order_by("type_skill__order")
         context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
         return render(request, "index.html", context)
 
