@@ -6,14 +6,15 @@ from core.models import PersonalInfo, Job, Education, TypeSkill, Skill
 @admin.register(PersonalInfo)
 class PersonalInfo(admin.ModelAdmin):
     list_display = (
+        "active",
         "identifier",
         "created_on",
-        "headshot",
-        "title",
         "first_name",
         "last_name",
+        "title",
         "email",
         "address",
+        "headshot",
     )
 
 

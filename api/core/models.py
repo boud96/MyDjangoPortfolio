@@ -17,12 +17,18 @@ class PersonalInfo(models.Model):
     phone = models.CharField(max_length=32)
     address = models.CharField(max_length=255)
     headshot = models.ImageField(upload_to='headshots/', blank=True, null=True)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.identifier
 
     class Meta:
         ordering = ['-created_on']
+
+    def save(self, *args, **kwargs):
+        if self.active:
+            PersonalInfo.objects.update(active=False)
+        super().save(*args, **kwargs)
 
 
 class Job(models.Model):
