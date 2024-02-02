@@ -54,6 +54,8 @@ class Education(admin.ModelAdmin):
 class TypeSkillAdmin(admin.ModelAdmin):
     list_display = (
         "title",
+        "order",
+        "color",
     )
 
 
