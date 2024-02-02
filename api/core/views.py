@@ -11,10 +11,18 @@ class IndexView(View):
         person.age = (timezone.now().date() - person.date_of_birth).days // 365
 
         jobs = Job.objects.all()
+
         educations = Education.objects.all()
-        skills = Skill.objects.all().order_by("type_skill__order")
+
+        skills = Skill.objects.all().order_by("type_skill__order", "order")
+        for skill in skills:
+            skill.type_skill.bg_color = self.add_alpha(skill.type_skill.color)
+
         context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
         return render(request, "index.html", context)
+
+    def add_alpha(self, color):
+        return color + "55"
 
 
 class IndexTestView(View):  # TODO: This is just temp test
