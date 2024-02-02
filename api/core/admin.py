@@ -14,8 +14,8 @@ from core.models import (
 @admin.register(PersonalInfo)
 class PersonalInfo(admin.ModelAdmin):
     list_display = (
-        "active",
         "identifier",
+        "active",
         "created_on",
         "first_name",
         "last_name",
@@ -29,7 +29,7 @@ class PersonalInfo(admin.ModelAdmin):
 @admin.register(Job)
 class Job(admin.ModelAdmin):
     list_display = (
-        "title",
+        "company",
         "position",
         "description",
         "start_date",
@@ -41,8 +41,8 @@ class Job(admin.ModelAdmin):
 @admin.register(Education)
 class Education(admin.ModelAdmin):
     list_display = (
-        "title",
         "position",
+        "title",
         "description",
         "start_date",
         "end_date",
@@ -70,7 +70,6 @@ class SkillAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "title",
         "short_description",
         "description",

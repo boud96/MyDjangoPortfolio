@@ -2,7 +2,7 @@ import uuid
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from markdownfield.models import MarkdownField, RenderedMarkdownField
+from markdownfield.models import MarkdownField
 from markdownfield.validators import VALIDATOR_STANDARD
 
 
@@ -13,7 +13,7 @@ class PersonalInfo(models.Model):
     title = models.CharField(max_length=32)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
-    about_me = MarkdownField(rendered_field='text_rendered', validator=VALIDATOR_STANDARD)
+    about_me = MarkdownField(validator=VALIDATOR_STANDARD)
     driver_license = models.CharField(max_length=32)
     date_of_birth = models.DateField()
     email = models.EmailField()
@@ -36,15 +36,15 @@ class PersonalInfo(models.Model):
 
 class Job(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
-    description = models.TextField()  # TODO RichTextField to allow bold, italic, underline, etc.
+    description = MarkdownField(validator=VALIDATOR_STANDARD)
     start_date = models.DateField()
     end_date = models.DateField()
     note = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.company
 
     class Meta:
         ordering = ['-start_date']
@@ -52,9 +52,9 @@ class Job(models.Model):
 
 class Education(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True, null=True)
     position = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)  # TODO RichTextField to allow bold, italic, underline, etc.
+    description = MarkdownField(validator=VALIDATOR_STANDARD)
     start_date = models.DateField()
     end_date = models.DateField()
     note = models.TextField(blank=True, null=True)
@@ -80,7 +80,7 @@ class TypeSkill(models.Model):
 class Skill(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=100)
-    description = models.TextField()  # TODO RichTextField to allow bold, italic, underline, etc.
+    description = MarkdownField(validator=VALIDATOR_STANDARD, blank=True, null=True)
     percent = models.IntegerField(default=100, validators=[MinValueValidator(1), MaxValueValidator(100)])
     type_skill = models.ForeignKey(TypeSkill, on_delete=models.CASCADE)
     order = models.IntegerField(default=1, validators=[MinValueValidator(1)])
