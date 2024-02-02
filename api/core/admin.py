@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from core.models import PersonalInfo, Job, Education, TypeSkill, Skill, Project
+from core.models import (
+    PersonalInfo,
+    Job,
+    Education,
+    TypeSkill,
+    Skill,
+    Project,
+    Photo,
+)
 
 
 @admin.register(PersonalInfo)
@@ -66,6 +74,15 @@ class ProjectAdmin(admin.ModelAdmin):
         "title",
         "short_description",
         "description",
+        "image",
+        "order",
+    )
+
+
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
         "image",
         "order",
     )

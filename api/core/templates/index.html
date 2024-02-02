@@ -258,48 +258,36 @@
                         <div class="ml-auto mr-auto">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#Photography">
-                                        <figure class="cc-effect"><img
-                                                src="../../../__cv_template/images/photography-1.jpg" alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Photoshoot</div>
-                                                <p>Photography</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#Photography">
-                                        <figure class="cc-effect"><img
-                                                src="../../../__cv_template/images/photography-3.jpg" alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Wedding Photoshoot</div>
-                                                <p>Photography</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
+                                    {% for photo in photos %}
+                                        {% if forloop.counter|divisibleby:"2" %}
+                                            <div class="cc-porfolio-image img-raised" data-aos="fade-up"
+                                                 data-aos-anchor-placement="top-bottom"><a href="#Photography">
+                                                <figure class="cc-effect"><img
+                                                        src="{{ photo.image.url }}" alt="Image"/>
+                                                    <figcaption>
+                                                        <div class="h4">Photoshoot</div>
+                                                        <p>Photography</p>
+                                                    </figcaption>
+                                                </figure>
+                                            </a></div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#Photography">
-                                        <figure class="cc-effect"><img
-                                                src="../../../__cv_template/images/photography-2.jpg" alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Beach Photoshoot</div>
-                                                <p>Photography</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#Photography">
-                                        <figure class="cc-effect"><img
-                                                src="../../../__cv_template/images/photography-4.jpg" alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Nature Photoshoot</div>
-                                                <p>Photography</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
+                                    {% for photo in photos %}
+                                        {% if not forloop.counter|divisibleby:"2" %}
+                                            <div class="cc-porfolio-image img-raised" data-aos="fade-up"
+                                                 data-aos-anchor-placement="top-bottom"><a href="#Photography">
+                                                <figure class="cc-effect"><img
+                                                        src="{{ photo.image.url }}" alt="Image"/>
+                                                    <figcaption>
+                                                        <div class="h4">Nature Photoshoot</div>
+                                                        <p>Photography</p>
+                                                    </figcaption>
+                                                </figure>
+                                            </a></div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -334,8 +322,6 @@
         <div class="section">
             <div class="container cc-education">
                 <div class="h4 text-center mb-4 title">Education</div>
-
-
                 {% for educations in educations %}
                     <div class="card">
                         <div class="row">
@@ -355,8 +341,6 @@
                         </div>
                     </div>
                 {% endfor %}
-
-
             </div>
         </div>
         <div class="section" id="reference">

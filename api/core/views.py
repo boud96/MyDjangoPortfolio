@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
 
-from core.models import PersonalInfo, Job, Education, Skill, Project
+from core.models import PersonalInfo, Job, Education, Skill, Project, Photo
 
 
 class IndexView(View):
@@ -20,7 +20,16 @@ class IndexView(View):
 
         projects = Project.objects.all()
 
-        context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills, "projects": projects}
+        photos = Photo.objects.all()
+
+        context = {
+            "person": person,
+            "jobs": jobs,
+            "educations": educations,
+            "skills": skills,
+            "projects": projects,
+            "photos": photos
+        }
         return render(request, "index.html", context)
 
     def add_alpha(self, color):

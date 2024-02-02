@@ -110,3 +110,16 @@ class Project(models.Model):
 
     class Meta:
         ordering = ['-order']
+
+
+class Photo(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='photos/')
+    order = models.IntegerField(default=1, validators=[MinValueValidator(1)], unique=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-order']
