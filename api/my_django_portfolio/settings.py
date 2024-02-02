@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core.apps.CoreConfig",
     "modeltranslation",
+    "markdownfield",
 ]
 
 MIDDLEWARE = [

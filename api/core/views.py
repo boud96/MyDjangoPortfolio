@@ -1,3 +1,4 @@
+import markdown
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
@@ -9,6 +10,7 @@ class IndexView(View):
     def get(self, request):
         person = PersonalInfo.objects.get(active=True)
         person.age = (timezone.now().date() - person.date_of_birth).days // 365
+        person.about_me = markdown.markdown(person.about_me)
 
         jobs = Job.objects.all()
 

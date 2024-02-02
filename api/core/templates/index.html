@@ -86,7 +86,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="card-body">
                                 <div class="h4 mt-0 title">About</div>
-                                <p>{{ person.about_me }}</p>
+                                <p>{{ person.about_me|safe }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
@@ -172,7 +172,7 @@
                                                                                                   aria-hidden="true"></i></a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#graphic-design"
-                                                        role="tablist"><i class="fa fa-picture-o"
+                                                        role="tablist"><i class="fa fa-star"
                                                                           aria-hidden="true"></i></a></li>
                                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Photography"
                                                         role="tablist"><i class="fa fa-camera"
@@ -191,10 +191,14 @@
                                              data-aos-anchor-placement="top-bottom">
                                             <a href="#web-development">
                                                 <figure class="cc-effect">
+                                                    {% if project.image %}
                                                     <img src="{{ project.image.url }}" alt="Image"/>
+                                                    {% else %}
+                                                    <img src="{% static 'images/project-default.jpg' %}" alt="Image"/>
+                                                    {% endif %}
                                                     <figcaption>
                                                         <div class="h4">{{ project.title }}</div>
-                                                        <p>{{ project.description }}</p>
+                                                        <p>{{ project.short_description }}</p>
                                                     </figcaption>
                                                 </figure>
                                             </a>
@@ -255,7 +259,9 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="Photography" role="tabpanel">
+
                         <div class="ml-auto mr-auto">
+                        <p>Nejsem fotograf, ale jednou za čas se mi čistou náhodou fotka povede a mám z ní radost. 🙂</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     {% for photo in photos %}
