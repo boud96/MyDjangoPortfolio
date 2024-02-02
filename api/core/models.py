@@ -94,3 +94,19 @@ class Skill(models.Model):
         if obj.exists():
             raise ValueError("Skill with this order already exists")
         super().save(*args, **kwargs)
+
+
+class Project(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+    title = models.CharField(max_length=100)
+    short_description = models.CharField(max_length=100)
+    description = models.TextField()  # TODO RichTextField to allow bold, italic, underline, etc.
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    order = models.IntegerField(default=1, validators=[MinValueValidator(1)], unique=True)
+    note = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-order']

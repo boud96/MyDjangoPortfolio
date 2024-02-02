@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import PersonalInfo, Job, Education, TypeSkill, Skill
+from core.models import PersonalInfo, Job, Education, TypeSkill, Skill, Project
 
 
 @admin.register(PersonalInfo)
@@ -55,4 +55,17 @@ class SkillAdmin(admin.ModelAdmin):
         "title",
         "description",
         "type_skill",
+        "order",
+    )
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "title",
+        "short_description",
+        "description",
+        "image",
+        "order",
     )

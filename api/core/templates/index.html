@@ -55,7 +55,7 @@
                     <div class="container">
                         <div class="content-center">
                             <div class="cc-profile-image"><a href="#"><img
-                                    src="{{ person.headshot.url }}" alt="Image"/></a></div>
+                                    src="{{ person.headshot.url }}" alt="my-headshot"/></a></div>
                             <div class="h2 title">{{ person.first_name }} {{ person.last_name }}</div>
                             <p class="category text-white">{{ person.identifier }}</p><a class="btn btn-primary"
                                                                                          href="#"
@@ -185,50 +185,22 @@
                     <div class="tab-pane active" id="web-development">
                         <div class="ml-auto mr-auto">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#web-development">
-                                        <figure class="cc-effect"><img src="../../../__cv_template/images/project-1.jpg"
-                                                                       alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Recent Project</div>
-                                                <p>Web Development</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#web-development">
-                                        <figure class="cc-effect"><img src="../../../__cv_template/images/project-2.jpg"
-                                                                       alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Startup Project</div>
-                                                <p>Web Development</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#web-development">
-                                        <figure class="cc-effect"><img src="../../../__cv_template/images/project-3.jpg"
-                                                                       alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Food Order Project</div>
-                                                <p>Web Development</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                    <div class="cc-porfolio-image img-raised" data-aos="fade-up"
-                                         data-aos-anchor-placement="top-bottom"><a href="#web-development">
-                                        <figure class="cc-effect"><img src="../../../__cv_template/images/project-4.jpg"
-                                                                       alt="Image"/>
-                                            <figcaption>
-                                                <div class="h4">Web Advertising Project</div>
-                                                <p>Web Development</p>
-                                            </figcaption>
-                                        </figure>
-                                    </a></div>
-                                </div>
+                                {% for project in projects %}
+                                    <div class="col-md-6">
+                                        <div class="cc-porfolio-image img-raised" data-aos="fade-up"
+                                             data-aos-anchor-placement="top-bottom">
+                                            <a href="#web-development">
+                                                <figure class="cc-effect">
+                                                    <img src="{{ project.image.url }}" alt="Image"/>
+                                                    <figcaption>
+                                                        <div class="h4">{{ project.title }}</div>
+                                                        <p>{{ project.description }}</p>
+                                                    </figcaption>
+                                                </figure>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
