@@ -22,6 +22,7 @@ from my_django_portfolio import settings
 
 urlpatterns = [
     path("", include('core.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
