@@ -8,6 +8,7 @@ from core.models import (
     Skill,
     Project,
     Photo,
+    SocialMediaAccount,
 )
 
 
@@ -86,4 +87,13 @@ class PhotoAdmin(admin.ModelAdmin):
         "title",
         "image",
         "order",
+    )
+
+
+@admin.register(SocialMediaAccount)
+class SocialMediaAccountAdmin(admin.ModelAdmin):
+    list_display = (
+        "owner",
+        "type",
+        "url",
     )

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Creative CV</title>
+    <title>{{ person.first_name }} {{ person.last_name }}</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="{% static 'css/aos.css' %}" rel="stylesheet">
@@ -25,7 +25,7 @@
     <div class="profile-page sidebar-collapse">
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
             <div class="container">
-                <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">Creative CV</a>
+                <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">{{ person.first_name }} {{ person.last_name }}</a>
                     <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navigation" aria-controls="navigation" aria-expanded="false"
                             aria-label="Toggle navigation"><span class="navbar-toggler-bar bar1"></span><span
@@ -67,18 +67,26 @@
                     <div class="section">
                         <div class="container">
                             <div class="button-container">
-                                <a class="btn btn-default btn-round btn-lg btn-icon" href="#">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                                <a class="btn btn-default btn-round btn-lg btn-icon" href="#">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                                <a class="btn btn-default btn-round btn-lg btn-icon" href="#">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                                <a class="btn btn-default btn-round btn-lg btn-icon" href="#">
-                                    <i class="fa fa-github"></i>
-                                </a>
+                                {% if person.linkedin %}
+                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.linkedin.url }}">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                {% endif %}
+                                {% if person.facebook %}
+                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.facebook.url }}">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                {% endif %}
+                                {% if person.instagram %}
+                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.instagram.url }}">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                {% endif %}
+                                {% if person.github %}
+                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.github.url }}">
+                                        <i class="fa fa-github"></i>
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -502,18 +510,26 @@
 </div>
 <footer class="footer">
     <div class="container text-center">
-        <a class="cc-facebook btn btn-link" href="#">
-            <i class="fa fa-linkedin fa-2x "aria-hidden="true"></i>
-        </a>
-        <a class="cc-facebook btn btn-link" href="#">
-            <i class="fa fa-facebook fa-2x "aria-hidden="true"></i>
-        </a>
-        <a class="cc-instagram btn btn-link" href="#">
-            <i class="fa fa-instagram fa-2x " aria-hidden="true"></i>
-        </a>
-        <a class="cc-instagram btn btn-link" href="#">
-            <i class="fa fa-github fa-2x " aria-hidden="true"></i>
-        </a>
+        {% if person.linkedin %}
+            <a class="cc-linkedin btn btn-link" href="{{ person.linkedin.url }}">
+                <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% if person.facebook %}
+            <a class="cc-facebook btn btn-link" href="{{ person.facebook.url }}">
+                <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% if person.instagram %}
+            <a class="cc-instagram btn btn-link" href="{{ person.instagram.url }}">
+                <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+        {% if person.github %}
+            <a class="cc-github btn btn-link" href="{{ person.github.url }}">
+                <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+            </a>
+        {% endif %}
     </div>
     <div class="h4 title text-center">{{ person.first_name }} {{ person.last_name }}</div>
     <div class="text-center text-muted">

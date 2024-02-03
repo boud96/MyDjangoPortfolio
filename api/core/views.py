@@ -3,7 +3,15 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
 
-from core.models import PersonalInfo, Job, Education, Skill, Project, Photo
+from core.models import (
+    PersonalInfo,
+    Job,
+    Education,
+    Skill,
+    Project,
+    Photo,
+    SocialMediaAccount,
+)
 
 
 class IndexView(View):
@@ -11,6 +19,12 @@ class IndexView(View):
         person = PersonalInfo.objects.get(active=True)
         person.age = (timezone.now().date() - person.date_of_birth).days // 365
         person.about_me = markdown.markdown(person.about_me)
+
+        socials = SocialMediaAccount.objects.filter(owner=person)
+        person.linkedin = socials.filter(type=0).first()  # TODO: Hardcoded like this is not the best idea.
+        person.facebook = socials.filter(type=1).first()
+        person.instagram = socials.filter(type=2).first()
+        person.github = socials.filter(type=3).first()
 
         jobs = Job.objects.all()
 

@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from markdownfield.models import MarkdownField
@@ -91,11 +92,10 @@ class Skill(models.Model):
     class Meta:
         ordering = ['-title']
 
-    def save(self, *args, **kwargs):
+    def clean(self, *args, **kwargs):
         obj = Skill.objects.filter(type_skill=self.type_skill).filter(order=self.order).exclude(id=self.id)
         if obj.exists():
             raise ValueError("Skill with this order already exists")
-        super().save(*args, **kwargs)
 
 
 class Project(models.Model):
@@ -126,3 +126,25 @@ class Photo(models.Model):
 
     class Meta:
         ordering = ['-order']
+
+
+class SocialMediaAccount(models.Model):
+    SOCIAL_MEDIA_ACCOUNT_TYPE = (
+        (0, "LinkedIn"),
+        (1, "Facebook"),
+        (2, "Instagram"),
+        (3, "GitHub"),
+    )
+
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+    type = models.IntegerField(choices=SOCIAL_MEDIA_ACCOUNT_TYPE)
+    owner = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.get_type_display()
+
+    def clean(self, *args, **kwargs):
+        obj = SocialMediaAccount.objects.filter(type=self.type).filter(owner=self.owner).exclude(id=self.id)
+        if obj.exists():
+            raise ValidationError("Social media account with this type already exists for this owner")
