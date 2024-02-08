@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-03 10:05+0100\n"
+"POT-Creation-Date: 2024-02-05 18:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-#: .\core\templates\index.html:38
+
+#: .\core\templates\index.html:38 .\core\templates\index.html:117
+#: .\core\templates\index.html:141
 msgid "About"
 msgstr "O mně"
 
-#: .\my_django_portfolio\settings.py:120
-msgid "English"
-msgstr ""
+#: .\core\templates\index.html:39
+msgid "Skills"
+msgstr "Dovednosti"
+
+#: .\core\templates\index.html:40
+msgid "Projects"
+msgstr "Projekty"
+
+#: .\core\templates\index.html:41
+msgid "Experience"
+msgstr "Zkušenosti"
+
+#: .\core\templates\index.html:42 .\core\templates\index.html:456
+msgid "Contact"
+msgstr "Kontakt"
+
+#: .\core\templates\index.html:78
+msgid "Download CV"
+msgstr "Stáhnout CV"
+
+#: .\core\templates\index.html:123
+msgid "Basic information"
+msgstr "Základní informace"
+
+#: .\core\templates\index.html:125
+msgid "Age"
+msgstr "Věk"
+
+#: .\core\templates\index.html:129 .\core\templates\index.html:512
+msgid "Email"
+msgstr "Email"
+
+#: .\core\templates\index.html:133 .\core\templates\index.html:510
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\core\templates\index.html:137 .\core\templates\index.html:508
+msgid "Address"
+msgstr "Adresa"
+
+#: .\core\templates\index.html:461
+msgid "Send me an email"
+msgstr "Pošlete mi email"
 
 #: .\my_django_portfolio\settings.py:121
+msgid "English"
+msgstr "angličtina"
+
+#: .\my_django_portfolio\settings.py:122
 msgid "Czech"
-msgstr ""
+msgstr "čeština"
