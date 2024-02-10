@@ -41,7 +41,7 @@ class Job(models.Model):
     position = models.CharField(max_length=100)
     description = MarkdownField(validator=VALIDATOR_STANDARD)
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -57,9 +57,8 @@ class Education(models.Model):
     position = models.CharField(max_length=100)
     description = MarkdownField(validator=VALIDATOR_STANDARD)
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
-
 
     def __str__(self):
         return self.title

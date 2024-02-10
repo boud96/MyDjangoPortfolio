@@ -151,9 +151,9 @@
                                     <div class="col-sm-8">{{ person.address }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "About" %}:</strong>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Driver's license" %}:</strong>
                                     </div>
-                                    <div class="col-sm-8">English, German, French</div>
+                                    <div class="col-sm-8">{{ person.driver_license }}</div>
                                 </div>
                             </div>
                         </div>
@@ -200,13 +200,15 @@
                             {% endfor %}
                         </div>
                         <div>
+                        {% if skills_other %}
                             <div class="h6 text-center mb-4">
-                                {% translate "Other skills and technologies I've worked with:" %}
+                                {% trans "Other technologies I use:" %}
                             </div>
                             <div class="h4 text-center">
                                 {% for skill_other in skills_other %}
                                     {{ skill_other.title }},
                                 {% endfor %}
+                        {% endif %}
                             </div>
                         </div>
                     </div>
@@ -374,7 +376,7 @@
                             <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                                 <div class="card-body">
                                     <div class="h5">{{ job.position }}</div>
-                                    <p>{{ job.description }}</p>
+                                    <p>{{ job.description|safe }}</p>
                                 </div>
                             </div>
                         </div>

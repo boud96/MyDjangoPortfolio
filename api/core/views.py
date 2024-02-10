@@ -27,13 +27,15 @@ class IndexView(View):
         person.github = socials.filter(type=3).first()
 
         jobs = Job.objects.all()
+        for job in jobs:
+            job.description = markdown.markdown(job.description)
 
         educations = Education.objects.all()
 
         skills = Skill.objects.exclude(type_skill__title="Other").order_by("type_skill__order", "order")
         for skill in skills:
             skill.type_skill.bg_color = self.add_alpha(skill.type_skill.color)
-        skills_other = Skill.objects.filter(type_skill__title="Other").order_by("order")
+        skills_other = Skill.objects.filter(type_skill__title="Other").order_by("order")  # TODO: Does not work with translations.
 
         projects = Project.objects.all()
 
