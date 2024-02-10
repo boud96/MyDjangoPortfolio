@@ -30,9 +30,10 @@ class IndexView(View):
 
         educations = Education.objects.all()
 
-        skills = Skill.objects.all().order_by("type_skill__order", "order")
+        skills = Skill.objects.exclude(type_skill__title="Other").order_by("type_skill__order", "order")
         for skill in skills:
             skill.type_skill.bg_color = self.add_alpha(skill.type_skill.color)
+        skills_other = Skill.objects.filter(type_skill__title="Other").order_by("order")
 
         projects = Project.objects.all()
 
@@ -43,6 +44,7 @@ class IndexView(View):
             "jobs": jobs,
             "educations": educations,
             "skills": skills,
+            "skills_other": skills_other,
             "projects": projects,
             "photos": photos
         }
