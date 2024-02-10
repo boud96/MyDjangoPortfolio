@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-10 20:36+0100\n"
+"POT-Creation-Date: 2024-02-10 21:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: .\core\templates\index.html:39 .\core\templates\index.html:126
+#: .\core\templates\index.html:39 .\core\templates\index.html:130
 msgid "About"
 msgstr "O mně"
 
-#: .\core\templates\index.html:41 .\core\templates\index.html:166
+#: .\core\templates\index.html:41 .\core\templates\index.html:171
 msgid "Skills"
 msgstr "Dovednosti"
 
@@ -35,59 +35,63 @@ msgstr "Projekty"
 msgid "Experience"
 msgstr "Zkušenosti"
 
-#: .\core\templates\index.html:47 .\core\templates\index.html:419
+#: .\core\templates\index.html:47 .\core\templates\index.html:423
 msgid "Contact"
 msgstr "Kontakt"
 
-#: .\core\templates\index.html:84
+#: .\core\templates\index.html:87
 msgid "Download CV"
 msgstr "Stáhnout CV"
 
-#: .\core\templates\index.html:132
+#: .\core\templates\index.html:136
 msgid "Basic information"
 msgstr "Základní informace"
 
-#: .\core\templates\index.html:134
+#: .\core\templates\index.html:138
 msgid "Age"
 msgstr "Věk"
 
-#: .\core\templates\index.html:139 .\core\templates\index.html:477
+#: .\core\templates\index.html:143 .\core\templates\index.html:481
 msgid "Email"
 msgstr "Email"
 
-#: .\core\templates\index.html:144 .\core\templates\index.html:475
+#: .\core\templates\index.html:148 .\core\templates\index.html:479
 msgid "Phone"
 msgstr "Telefon"
 
-#: .\core\templates\index.html:149 .\core\templates\index.html:473
+#: .\core\templates\index.html:153 .\core\templates\index.html:477
 msgid "Address"
 msgstr "Adresa"
 
-#: .\core\templates\index.html:154
+#: .\core\templates\index.html:159
 msgid "Driver's license"
 msgstr "Řidičské průkazy"
 
-#: .\core\templates\index.html:205
+#: .\core\templates\index.html:210
 msgid "Other technologies I use:"
 msgstr "Další technologie:"
 
-#: .\core\templates\index.html:222
+#: .\core\templates\index.html:227
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: .\core\templates\index.html:365
+#: .\core\templates\index.html:326
+msgid "Few of my photos that by a complete accident turned out nice."
+msgstr "Pár mých fotek, co se čirou náhodou vydařilo "
+
+#: .\core\templates\index.html:369
 msgid "Employment"
 msgstr "Zaměstnání"
 
-#: .\core\templates\index.html:389
+#: .\core\templates\index.html:393
 msgid "Education"
 msgstr "Vzdělání"
 
-#: .\core\templates\index.html:424
+#: .\core\templates\index.html:428
 msgid "Send me an email"
 msgstr "Pošlete mi email"
 
-#: .\core\templates\index.html:465
+#: .\core\templates\index.html:469
 msgid "Send"
 msgstr "Odeslat"
 

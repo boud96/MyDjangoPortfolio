@@ -80,7 +80,10 @@
                                     src="{{ person.headshot.url }}" alt="my-headshot"/></a></div>
                             <div class="h2 title">{{ person.first_name }} {{ person.last_name }}</div>
                             <p class="category text-white">{{ person.identifier }}</p>
-                            <a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">
+                            <a class="btn btn-primary" href="{% url 'download-cv/' %}"
+                               onclick="alert('The export of the CV in the form seen on this page is not implemented yet, in the meantime, have my slightly outdated CV instead 🥲');"
+                               download="Your_CV_Filename.pdf"
+                               data-aos="zoom-in" data-aos-anchor="data-aos-anchor">
                                 {% trans "Download CV" %}
                             </a>
                         </div>
@@ -319,8 +322,7 @@
                     <div class="tab-pane" id="Photography" role="tabpanel">
 
                         <div class="ml-auto mr-auto">
-                            <p>Nejsem fotograf, ale jednou za čas se mi čistou náhodou fotka povede a mám z ní radost.
-                                🙂</p>
+                            <div class="h3">{% trans 'Few of my photos that by a complete accident turned out nice.' %}</div>
                             <div class="row">
                                 <div class="col-md-6">
                                     {% for photo in photos %}

@@ -1,4 +1,8 @@
+import os
+
 import markdown
+from django.conf import settings
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
@@ -64,3 +68,14 @@ class IndexTestView(View):  # TODO: This is just temp test
         skills = Skill.objects.all()
         context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
         return render(request, "indextest.html", context)
+
+
+class DownloadCVView(View):
+    def get(self, request, *args, **kwargs):
+        file_path = os.path.join(settings.MEDIA_ROOT, 'boudnik_adam_cv.pdf')
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type='application/pdf')
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
