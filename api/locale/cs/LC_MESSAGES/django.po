@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-05 18:24+0100\n"
+"POT-Creation-Date: 2024-02-10 20:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,54 +19,77 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: .\core\templates\index.html:38 .\core\templates\index.html:117
-#: .\core\templates\index.html:141
+#: .\core\templates\index.html:39 .\core\templates\index.html:126
 msgid "About"
 msgstr "O mně"
 
-#: .\core\templates\index.html:39
+#: .\core\templates\index.html:41 .\core\templates\index.html:166
 msgid "Skills"
 msgstr "Dovednosti"
 
-#: .\core\templates\index.html:40
+#: .\core\templates\index.html:44
 msgid "Projects"
 msgstr "Projekty"
 
-#: .\core\templates\index.html:41
+#: .\core\templates\index.html:46
 msgid "Experience"
 msgstr "Zkušenosti"
 
-#: .\core\templates\index.html:42 .\core\templates\index.html:456
+#: .\core\templates\index.html:47 .\core\templates\index.html:419
 msgid "Contact"
 msgstr "Kontakt"
 
-#: .\core\templates\index.html:78
+#: .\core\templates\index.html:84
 msgid "Download CV"
 msgstr "Stáhnout CV"
 
-#: .\core\templates\index.html:123
+#: .\core\templates\index.html:132
 msgid "Basic information"
 msgstr "Základní informace"
 
-#: .\core\templates\index.html:125
+#: .\core\templates\index.html:134
 msgid "Age"
 msgstr "Věk"
 
-#: .\core\templates\index.html:129 .\core\templates\index.html:512
+#: .\core\templates\index.html:139 .\core\templates\index.html:477
 msgid "Email"
 msgstr "Email"
 
-#: .\core\templates\index.html:133 .\core\templates\index.html:510
+#: .\core\templates\index.html:144 .\core\templates\index.html:475
 msgid "Phone"
 msgstr "Telefon"
 
-#: .\core\templates\index.html:137 .\core\templates\index.html:508
+#: .\core\templates\index.html:149 .\core\templates\index.html:473
 msgid "Address"
 msgstr "Adresa"
 
-#: .\core\templates\index.html:461
+#: .\core\templates\index.html:154
+msgid "Driver's license"
+msgstr "Řidičské průkazy"
+
+#: .\core\templates\index.html:205
+msgid "Other technologies I use:"
+msgstr "Další technologie:"
+
+#: .\core\templates\index.html:222
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: .\core\templates\index.html:365
+msgid "Employment"
+msgstr "Zaměstnání"
+
+#: .\core\templates\index.html:389
+msgid "Education"
+msgstr "Vzdělání"
+
+#: .\core\templates\index.html:424
 msgid "Send me an email"
 msgstr "Pošlete mi email"
+
+#: .\core\templates\index.html:465
+msgid "Send"
+msgstr "Odeslat"
 
 #: .\my_django_portfolio\settings.py:121
 msgid "English"

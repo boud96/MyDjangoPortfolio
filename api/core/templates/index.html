@@ -151,7 +151,8 @@
                                     <div class="col-sm-8">{{ person.address }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Driver's license" %}:</strong>
+                                    <div class="col-sm-4"><strong
+                                            class="text-uppercase">{% trans "Driver's license" %}:</strong>
                                     </div>
                                     <div class="col-sm-8">{{ person.driver_license }}</div>
                                 </div>
@@ -199,18 +200,18 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <div>
                         {% if skills_other %}
-                            <div class="h6 text-center mb-4">
-                                {% trans "Other technologies I use:" %}
+                            <div>
+                                <div class="h6 text-center mb-4">
+                                    {% trans "Other technologies I use:" %}
+                                </div>
+                                <div class="h4 text-center">
+                                    {% for skill_other in skills_other %}
+                                        {{ skill_other.title }},
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="h4 text-center">
-                                {% for skill_other in skills_other %}
-                                    {{ skill_other.title }},
-                                {% endfor %}
                         {% endif %}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
