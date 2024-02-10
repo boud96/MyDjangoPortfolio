@@ -5283,3 +5283,20 @@ a.credit {
 /* Common Style */
 .section {
   padding-bottom: 0; }
+
+.photo-grid {
+  display: grid; /* Establish a grid container */
+  grid-template-columns: repeat(3,  1fr); /* Create three columns of equal width */
+  grid-auto-flow: column; /* Flow items into columns instead of rows */
+  gap:  10px; /* Set the gap between grid items */
+}
+
+.photo-item {
+  width:  100%; /* Full width of the grid cell */
+}
+
+.cc-porfolio-image img {
+  width:  100%; /* Full width of the .photo-item */
+  height: auto; /* Auto height to maintain aspect ratio */
+  object-fit: cover; /* Cover the area of the grid cell without distortion */
+}
