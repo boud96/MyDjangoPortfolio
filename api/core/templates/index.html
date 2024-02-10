@@ -26,7 +26,8 @@
     <div class="profile-page sidebar-collapse">
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
             <div class="container">
-                <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">{{ person.first_name }} {{ person.last_name }}</a>
+                <div class="navbar-translate"><a class="navbar-brand" href="#"
+                                                 rel="tooltip">{{ person.first_name }} {{ person.last_name }}</a>
                     <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navigation" aria-controls="navigation" aria-expanded="false"
                             aria-label="Toggle navigation"><span class="navbar-toggler-bar bar1"></span><span
@@ -35,11 +36,16 @@
                 </div>
                 <div class="collapse navbar-collapse justify-content-end" id="navigation">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">{% trans "About" %}</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#skill">{% trans "Skills" %}</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#portfolio">{% trans "Projects" %}</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#experience">{% trans "Experience" %}</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">{% trans "Contact" %}</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">{% trans "About" %}</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#skill">{% trans "Skills" %}</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#portfolio">{% trans "Projects" %}</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll"
+                                                href="#experience">{% trans "Experience" %}</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">{% trans "Contact" %}</a>
+                        </li>
                         <!-- Switch to Czech -->
                         <form action="/i18n/setlang/" method="post">
                             {% csrf_token %}
@@ -83,17 +89,20 @@
                         <div class="container">
                             <div class="button-container">
                                 {% if person.linkedin %}
-                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.linkedin.url }}">
+                                    <a class="btn btn-default btn-round btn-lg btn-icon"
+                                       href="{{ person.linkedin.url }}">
                                         <i class="fa fa-linkedin"></i>
                                     </a>
                                 {% endif %}
                                 {% if person.facebook %}
-                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.facebook.url }}">
+                                    <a class="btn btn-default btn-round btn-lg btn-icon"
+                                       href="{{ person.facebook.url }}">
                                         <i class="fa fa-facebook"></i>
                                     </a>
                                 {% endif %}
                                 {% if person.instagram %}
-                                    <a class="btn btn-default btn-round btn-lg btn-icon" href="{{ person.instagram.url }}">
+                                    <a class="btn btn-default btn-round btn-lg btn-icon"
+                                       href="{{ person.instagram.url }}">
                                         <i class="fa fa-instagram"></i>
                                     </a>
                                 {% endif %}
@@ -122,23 +131,28 @@
                             <div class="card-body">
                                 <div class="h4 mt-0 title">{% trans "Basic information" %}</div>
                                 <div class="row">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Age" %}:</strong></div>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Age" %}:</strong>
+                                    </div>
                                     <div class="col-sm-8">{{ person.age }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Email" %}:</strong></div>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Email" %}:</strong>
+                                    </div>
                                     <div class="col-sm-8">{{ person.email }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Phone" %}:</strong></div>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Phone" %}:</strong>
+                                    </div>
                                     <div class="col-sm-8">{{ person.phone }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Address" %}:</strong></div>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "Address" %}:</strong>
+                                    </div>
                                     <div class="col-sm-8">{{ person.address }}</div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "About" %}:</strong></div>
+                                    <div class="col-sm-4"><strong class="text-uppercase">{% trans "About" %}:</strong>
+                                    </div>
                                     <div class="col-sm-8">English, German, French</div>
                                 </div>
                             </div>
@@ -185,6 +199,16 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
+                        <div>
+                            <div class="h6 text-center mb-4">
+                                {% translate "Other skills and technologies I've worked with:" %}
+                            </div>
+                            <div class="h4 text-center">
+                                {% for skill_other in skills_other %}
+                                    {{ skill_other.title }},
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,18 +242,23 @@
                                     <div class="col-md-6">
                                         <div class="cc-porfolio-image img-raised" data-aos="fade-up"
                                              data-aos-anchor-placement="top-bottom">
-                                            <a href="#web-development">
-                                                <figure class="cc-effect">
-                                                    {% if project.image %}
+                                            {% if project.url %}
+                                                <a href={{ project.url }}>
+                                            {% else %}
+                                                {#                                                <a href="{% url 'project' project.id %}">#}
+                                                <a href="{% url 'project-detail' project.id %}">
+                                            {% endif %}
+                                            <figure class="cc-effect">
+                                                {% if project.image %}
                                                     <img src="{{ project.image.url }}" alt="Image"/>
-                                                    {% else %}
+                                                {% else %}
                                                     <img src="{% static 'images/project-default.jpg' %}" alt="Image"/>
-                                                    {% endif %}
-                                                    <figcaption>
-                                                        <div class="h4">{{ project.title }}</div>
-                                                        <p>{{ project.short_description }}</p>
-                                                    </figcaption>
-                                                </figure>
+                                                {% endif %}
+                                                <figcaption>
+                                                    <div class="h4">{{ project.title }}</div>
+                                                    <p>{{ project.short_description }}</p>
+                                                </figcaption>
+                                            </figure>
                                             </a>
                                         </div>
                                     </div>
@@ -290,7 +319,8 @@
                     <div class="tab-pane" id="Photography" role="tabpanel">
 
                         <div class="ml-auto mr-auto">
-                        <p>Nejsem fotograf, ale jednou za čas se mi čistou náhodou fotka povede a mám z ní radost. 🙂</p>
+                            <p>Nejsem fotograf, ale jednou za čas se mi čistou náhodou fotka povede a mám z ní radost.
+                                🙂</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     {% for photo in photos %}
@@ -314,7 +344,8 @@
                                             <div class="cc-porfolio-image img-raised" data-aos="fade-up"
                                                  data-aos-anchor-placement="top-bottom"><a href="#Photography">
                                                 <figure class="cc-effect"><img
-                                                        src="{{ photo.image.url }}" alt="Image" bruh="{{ photo.order }}"/>
+                                                        src="{{ photo.image.url }}" alt="Image"
+                                                        bruh="{{ photo.order }}"/>
                                                     <figcaption>
                                                         <div class="h4">Nature Photoshoot</div>
                                                         <p>Photography</p>
@@ -339,8 +370,8 @@
                             <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
                                  data-aos-duration="500">
                                 <div class="card-body cc-experience-header">
-                                    <p>{{ job.start_date }} - {{ job.end_date }}</p>
-                                    <div class="h5">{{ job.title }}</div>
+                                    <p>{{ job.start_date|date:"m/Y" }} - {{ job.end_date|date:"m/Y" }}</p>
+                                    <div class="h5">{{ job.company }}</div>
                                 </div>
                             </div>
                             <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
@@ -357,20 +388,20 @@
         <div class="section">
             <div class="container cc-education">
                 <div class="h4 text-center mb-4 title">{% trans "Education" %}</div>
-                {% for educations in educations %}
+                {% for education in educations %}
                     <div class="card">
                         <div class="row">
                             <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
                                  data-aos-duration="500">
                                 <div class="card-body cc-education-header">
-                                    <p>2013 - 2015</p>
-                                    <div class="h5">{{ educations.title }}</div>
+                                    <p>{{ education.start_date|date:"m/Y" }} - {{ education.end_date|date:"m/Y" }}</p>
+                                    <div class="h5">{{ education.title }}</div>
                                 </div>
                             </div>
                             <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                                 <div class="card-body">
-                                    <div class="h5">{{ educations.position }}</div>
-                                    <p class="category">{{ educations.description }}</p>
+                                    <div class="h5">{{ education.position }}</div>
+                                    <p class="category">{{ education.description }}</p>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +422,8 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <form action="https://formspree.io/your@email.com" method="POST">
-                                                    <div class="p pb-3"><strong>{% trans "Send me an email" %}</strong></div>
+                                                    <div class="p pb-3"><strong>{% trans "Send me an email" %}</strong>
+                                                    </div>
                                                     <div class="row mb-3">
                                                         <div class="col">
                                                             <div class="input-group"><span class="input-group-addon"><i
@@ -430,7 +462,8 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <button class="btn btn-primary" type="submit">{% trans "Send" %}</button>
+                                                            <button class="btn btn-primary"
+                                                                    type="submit">{% trans "Send" %}</button>
                                                         </div>
                                                     </div>
                                                 </form>
