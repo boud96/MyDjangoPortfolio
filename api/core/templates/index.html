@@ -328,9 +328,9 @@
                                     <div class="col-md-4">
                                         <div class="cc-porfolio-image img-raised" data-aos="fade-up"
                                              data-aos-anchor-placement="top-bottom">
-                                                <figure>
-                                                    <img src="{{ photo.image.url }}" alt="Image"/>
-                                                </figure>
+                                            <figure>
+                                                <img src="{{ photo.image.url }}" alt="Image"/>
+                                            </figure>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -345,118 +345,133 @@
             <div class="container cc-experience">
                 <div class="h4 text-center mb-4 title">{% trans "Employment" %}</div>
                 {% for job in jobs %}
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
-                                 data-aos-duration="500">
-                                <div class="card-body cc-experience-header">
-                                    <p>{{ job.start_date|date:"m/Y" }} - {{ job.end_date|date:"m/Y" }}</p>
-                                    <div class="h5">{{ job.company }}</div>
+
+                    <div class="card {% if forloop.first %}highlighted-card{% endif %}">
+                <div class="row">
+                    <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
+                         data-aos-duration="500">
+                        <div class="card-body cc-experience-header">
+                            <p>{{ job.start_date|date:"m/Y" }} -
+                                {% if job.end_date %}
+                                    {{ job.end_date|date:"m/Y" }}
+                                {% else %}
+                                    {% trans 'now' %}
+                                {% endif %}
+                            </p>
+                            <div class="h5">{{ job.company }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+                        <div class="card-body">
+                            <div class="h5">{{ job.position }}</div>
+                            <p>{{ job.description|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="section">
+                <div class="container cc-education">
+                    <div class="h4 text-center mb-4 title">{% trans "Education" %}</div>
+                    {% for education in educations %}
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
+                                     data-aos-duration="500">
+                                    <div class="card-body cc-education-header">
+                                        <p>{{ education.start_date|date:"m/Y" }}
+                                            - {{ education.end_date|date:"m/Y" }}</p>
+                                        <div class="h5">{{ education.title }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-                                <div class="card-body">
-                                    <div class="h5">{{ job.position }}</div>
-                                    <p>{{ job.description|safe }}</p>
+                                <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+                                    <div class="card-body">
+                                        <div class="h5">{{ education.position }}</div>
+                                        <p class="category">{{ education.description }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="container cc-education">
-                <div class="h4 text-center mb-4 title">{% trans "Education" %}</div>
-                {% for education in educations %}
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50"
-                                 data-aos-duration="500">
-                                <div class="card-body cc-education-header">
-                                    <p>{{ education.start_date|date:"m/Y" }} - {{ education.end_date|date:"m/Y" }}</p>
-                                    <div class="h5">{{ education.title }}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
-                                <div class="card-body">
-                                    <div class="h5">{{ education.position }}</div>
-                                    <p class="category">{{ education.description }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="section" id="contact">
-            <div class="cc-contact-information"
-                 style="background-image: url('../../../__cv_template/images/staticmap.png')">
-                <div class="container">
-                    <div class="cc-contact">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="card mb-0" data-aos="zoom-in">
-                                    <div class="h4 text-center title">{% trans "Contact" %}</div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card-body">
-                                                <form action="https://formspree.io/your@email.com" method="POST">
-                                                    <div class="p pb-3"><strong>{% trans "Send me an email" %}</strong>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <div class="input-group"><span class="input-group-addon"><i
-                                                                    class="fa fa-user-circle"></i></span>
-                                                                <input class="form-control" type="text" name="name"
-                                                                       placeholder="Name" required="required"/>
+            <div class="section" id="contact">
+                <div class="cc-contact-information"
+                     style="background-image: url('../../../__cv_template/images/staticmap.png')">
+                    <div class="container">
+                        <div class="cc-contact">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="card mb-0" data-aos="zoom-in">
+                                        <div class="h4 text-center title">{% trans "Contact" %}</div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+                                                    <form action="https://formspree.io/your@email.com" method="POST">
+                                                        <div class="p pb-3">
+                                                            <strong>{% trans "Send me an email" %}</strong>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group"><span
+                                                                        class="input-group-addon"><i
+                                                                        class="fa fa-user-circle"></i></span>
+                                                                    <input class="form-control" type="text" name="name"
+                                                                           placeholder="Name" required="required"/>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <div class="input-group"><span class="input-group-addon"><i
-                                                                    class="fa fa-file-text"></i></span>
-                                                                <input class="form-control" type="text" name="Subject"
-                                                                       placeholder="Subject" required="required"/>
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group"><span
+                                                                        class="input-group-addon"><i
+                                                                        class="fa fa-file-text"></i></span>
+                                                                    <input class="form-control" type="text"
+                                                                           name="Subject"
+                                                                           placeholder="Subject" required="required"/>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <div class="input-group"><span class="input-group-addon"><i
-                                                                    class="fa fa-envelope"></i></span>
-                                                                <input class="form-control" type="email" name="_replyto"
-                                                                       placeholder="E-mail" required="required"/>
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="input-group"><span
+                                                                        class="input-group-addon"><i
+                                                                        class="fa fa-envelope"></i></span>
+                                                                    <input class="form-control" type="email"
+                                                                           name="_replyto"
+                                                                           placeholder="E-mail" required="required"/>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row mb-3">
-                                                        <div class="col">
-                                                            <div class="form-group">
+                                                        <div class="row mb-3">
+                                                            <div class="col">
+                                                                <div class="form-group">
                                                                 <textarea class="form-control" name="message"
                                                                           placeholder="Your Message"
                                                                           required="required"></textarea>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <button class="btn btn-primary"
-                                                                    type="submit">{% trans "Send" %}</button>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <button class="btn btn-primary"
+                                                                        type="submit">{% trans "Send" %}</button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card-body">
-                                                <p class="mb-0"><strong>{% trans "Address" %}</strong></p>
-                                                <p class="pb-2">{{ person.address }}</p>
-                                                <p class="mb-0"><strong>{% trans "Phone" %}</strong></p>
-                                                <p class="pb-2">{{ person.phone }}</p>
-                                                <p class="mb-0"><strong>{% trans "Email" %}</strong></p>
-                                                <p>{{ person.email }}</p>
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+                                                    <p class="mb-0"><strong>{% trans "Address" %}</strong></p>
+                                                    <p class="pb-2">{{ person.address }}</p>
+                                                    <p class="mb-0"><strong>{% trans "Phone" %}</strong></p>
+                                                    <p class="pb-2">{{ person.phone }}</p>
+                                                    <p class="mb-0"><strong>{% trans "Email" %}</strong></p>
+                                                    <p>{{ person.email }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -468,41 +483,40 @@
             </div>
         </div>
     </div>
-</div>
-<footer class="footer">
-    <div class="container text-center">
-        {% if person.linkedin %}
-            <a class="cc-linkedin btn btn-link" href="{{ person.linkedin.url }}">
-                <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
-            </a>
-        {% endif %}
-        {% if person.facebook %}
-            <a class="cc-facebook btn btn-link" href="{{ person.facebook.url }}">
-                <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
-            </a>
-        {% endif %}
-        {% if person.instagram %}
-            <a class="cc-instagram btn btn-link" href="{{ person.instagram.url }}">
-                <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
-            </a>
-        {% endif %}
-        {% if person.github %}
-            <a class="cc-github btn btn-link" href="{{ person.github.url }}">
-                <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-            </a>
-        {% endif %}
-    </div>
-    <div class="h4 title text-center">{{ person.first_name }} {{ person.last_name }}</div>
-    <div class="text-center text-muted">
-        <p>&copy; Creative CV. All rights reserved.<br>Design - <a class="credit" href="https://templateflip.com"
-                                                                   target="_blank">TemplateFlip</a></p>
-    </div>
-</footer>
-<script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
-<script src="{% static 'js/core/popper.min.js' %}"></script>
-<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/now-ui-kit.js' %}"></script>
-<script src="{% static 'js/aos.js' %}"></script>
-<script src="{% static 'scripts/main.js' %}"></script>
+    <footer class="footer">
+        <div class="container text-center">
+            {% if person.linkedin %}
+                <a class="cc-linkedin btn btn-link" href="{{ person.linkedin.url }}">
+                    <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+            {% if person.facebook %}
+                <a class="cc-facebook btn btn-link" href="{{ person.facebook.url }}">
+                    <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+            {% if person.instagram %}
+                <a class="cc-instagram btn btn-link" href="{{ person.instagram.url }}">
+                    <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+            {% if person.github %}
+                <a class="cc-github btn btn-link" href="{{ person.github.url }}">
+                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            {% endif %}
+        </div>
+        <div class="h4 title text-center">{{ person.first_name }} {{ person.last_name }}</div>
+        <div class="text-center text-muted">
+            <p>&copy; Creative CV. All rights reserved.<br>Design - <a class="credit" href="https://templateflip.com"
+                                                                       target="_blank">TemplateFlip</a></p>
+        </div>
+    </footer>
+    <script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/now-ui-kit.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'scripts/main.js' %}"></script>
 </body>
 </html>
