@@ -14,6 +14,7 @@ class PersonalInfo(models.Model):
     title = models.CharField(max_length=32)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
+    short_description = models.CharField(max_length=100, blank=True, null=True)
     about_me = MarkdownField(validator=VALIDATOR_STANDARD)
     driver_license = models.CharField(max_length=32)
     date_of_birth = models.DateField()
