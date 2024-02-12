@@ -20,20 +20,22 @@ from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ENV_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
-env.read_env(os.path.join(BASE_DIR, ".env"))
+env.read_env(os.path.join(ENV_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-msg2h^+lw&=p9)vsfu*eww9vq@k-+h#qyz2^s1l&e(-#r^n6oz"
+
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DJANGO_DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -138,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'core/static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
