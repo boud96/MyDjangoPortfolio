@@ -12,13 +12,16 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 
-
-import sys
-
-print("Python paths:")
-for path in sys.path:
-    print(path)
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_django_portfolio.settings")
 
+print("BRUH")
+print()
+print()
+print()
+print()
+print()
+print(os.environ.get('DJANGO_SETTINGS_MODULE'))
+
 application = get_wsgi_application()
+
+print("Python paths:")
