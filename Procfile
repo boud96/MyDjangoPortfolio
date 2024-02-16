@@ -1,1 +1,1 @@
-web: gunicorn api.my_django_portfolio.wsgi
+web: gunicorn my_django_portfolio.wsgi
