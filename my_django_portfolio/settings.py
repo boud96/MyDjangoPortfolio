@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
-env.read_env(os.path.join(ENV_DIR, ".env"))
+env.read_env(os.path.join(ENV_DIR, "MyDjangoPortfolio2/.env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/

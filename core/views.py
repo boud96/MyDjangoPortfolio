@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
 
-from api.core.models import (
+from core.models import (
     PersonalInfo,
     Job,
     Education,
@@ -54,7 +54,7 @@ class IndexView(View):
             "projects": projects,
             "photos": photos
         }
-        return render(request, "index.html", context)
+        return render(request, "templates/index.html", context)
 
     def add_alpha(self, color):
         return color + "55"
@@ -67,7 +67,7 @@ class IndexTestView(View):  # TODO: This is just temp test
         educations = Education.objects.all()
         skills = Skill.objects.all()
         context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
-        return render(request, "indextest.html", context)
+        return render(request, "templates/indextest.html", context)
 
 
 class DownloadCVView(View):
