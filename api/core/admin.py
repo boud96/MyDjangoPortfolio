@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import (
+from api.core.models import (
     PersonalInfo,
     Job,
     Education,
