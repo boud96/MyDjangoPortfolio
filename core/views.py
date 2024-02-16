@@ -54,7 +54,7 @@ class IndexView(View):
             "projects": projects,
             "photos": photos
         }
-        return render(request, "templates/index.html", context)
+        return render(request, "index.html", context)
 
     def add_alpha(self, color):
         return color + "55"
