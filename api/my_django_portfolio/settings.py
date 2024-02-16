@@ -40,8 +40,6 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
-print("IS THE ERROR HERE?")
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -49,12 +47,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "core.apps.CoreConfig",
+    "apps.CoreConfig",
     "modeltranslation",
     "markdownfield",
 ]
-
-print("MAYBE")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
