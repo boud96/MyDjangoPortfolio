@@ -148,3 +148,21 @@ class SocialMediaAccount(models.Model):
         obj = SocialMediaAccount.objects.filter(type=self.type).filter(owner=self.owner).exclude(id=self.id)
         if obj.exists():
             raise ValidationError("Social media account with this type already exists for this owner")
+
+
+class CVFile(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+    name = models.CharField(max_length=100)
+    file = models.FileField(upload_to='cv_files/')
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.active:
+            CVFile.objects.update(active=False)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['name']
