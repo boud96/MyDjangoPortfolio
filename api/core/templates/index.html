@@ -79,9 +79,7 @@
                                     src="{{ person.headshot.url }}" alt="my-headshot"/></a></div>
                             <div class="h2 title">{{ person.first_name }} {{ person.last_name }}</div>
                             <p class="category text-white">{{ person.short_description }}</p>
-                            <a class="btn btn-primary" href="{% url 'download-cv/' %}"
-                               onclick="alert('The export of the CV in the form seen on this page is not implemented yet, in the meantime, have my slightly outdated CV instead 🥲');"
-                               download="Your_CV_Filename.pdf"
+                            <a class="btn btn-primary" href="{% url 'download-cv' %}"
                                data-aos="zoom-in" data-aos-anchor="data-aos-anchor">
                                 {% trans "Download CV" %}
                             </a>

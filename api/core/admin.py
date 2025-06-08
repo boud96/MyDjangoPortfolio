@@ -9,6 +9,7 @@ from core.models import (
     Project,
     Photo,
     SocialMediaAccount,
+    CVFile,
 )
 
 
@@ -96,4 +97,13 @@ class SocialMediaAccountAdmin(admin.ModelAdmin):
         "owner",
         "type",
         "url",
+    )
+
+
+@admin.register(CVFile)
+class CVFileAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "file",
+        "active"
     )
