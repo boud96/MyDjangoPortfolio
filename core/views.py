@@ -68,7 +68,7 @@ class IndexTestView(View):  # TODO: This is just temp test
         educations = Education.objects.all()
         skills = Skill.objects.all()
         context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
-        return render(request, "indextest.html", context)
+        return render(request, "templates/indextest.html", context)
 
 
 class DownloadCVView(View):
