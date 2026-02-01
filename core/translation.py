@@ -35,3 +35,8 @@ class ProjectTranslationOptions(TranslationOptions):
 @register(Photo)
 class PhotoTranslationOptions(TranslationOptions):
     fields = ('title',)
+
+
+@register(CVFile)
+class CVFileTranslationOptions(TranslationOptions):
+    fields = ('file',)
