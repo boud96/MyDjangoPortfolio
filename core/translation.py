@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Skill, PersonalInfo, Job, Education, TypeSkill, Project, Photo
+from .models import Skill, PersonalInfo, Job, Education, TypeSkill, Project, Photo, CVFile
 
 
 @register(PersonalInfo)
