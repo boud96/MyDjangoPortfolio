@@ -240,6 +240,7 @@
                 <div class="tab-content gallery mt-5">
                     <div class="tab-pane active" id="web-development">
                         <div class="ml-auto mr-auto">
+                            <div class="h4 text-center mb-4 title">{% trans "Projects" %}</div>
                             <div class="row">
                                 {% for project in projects %}
                                     <div class="col-md-6">
@@ -318,26 +319,7 @@
                     {#                    </div>#}
                     <div class="tab-pane" id="Photography" role="tabpanel">
                         <div class="ml-auto mr-auto">
-                            <div class="h3">{% trans 'Few of my photos' %}</div>
-                            <style>
-                                .photo-gallery {
-                                    column-count: 1;
-                                    column-gap: 15px;
-                                }
-                                @media (min-width: 768px) {
-                                    .photo-gallery {
-                                        column-count: 3;
-                                    }
-                                }
-                                .photo-item {
-                                    break-inside: avoid;
-                                    margin-bottom: 15px;
-                                }
-                                .photo-item img {
-                                    width: 100%;
-                                    display: block;
-                                }
-                            </style>
+                            <div class="h4 text-center mb-4 title">{% trans "Photos" %}</div>
                             <div class="photo-gallery">
                                 {% for photo in photos %}
                                     <div class="photo-item">
