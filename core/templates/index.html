@@ -319,9 +319,28 @@
                     <div class="tab-pane" id="Photography" role="tabpanel">
                         <div class="ml-auto mr-auto">
                             <div class="h3">{% trans 'Few of my photos' %}</div>
-                            <div class="row">
+                            <style>
+                                .photo-gallery {
+                                    column-count: 1;
+                                    column-gap: 15px;
+                                }
+                                @media (min-width: 768px) {
+                                    .photo-gallery {
+                                        column-count: 3;
+                                    }
+                                }
+                                .photo-item {
+                                    break-inside: avoid;
+                                    margin-bottom: 15px;
+                                }
+                                .photo-item img {
+                                    width: 100%;
+                                    display: block;
+                                }
+                            </style>
+                            <div class="photo-gallery">
                                 {% for photo in photos %}
-                                    <div class="col-md-4">
+                                    <div class="photo-item">
                                         <div class="cc-porfolio-image img-raised" data-aos="fade-up"
                                              data-aos-anchor-placement="top-bottom">
                                             <figure>
