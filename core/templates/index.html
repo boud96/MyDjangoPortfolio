@@ -44,8 +44,6 @@
                                                 href="#portfolio">{% trans "Projects" %}</a></li>
                         <li class="nav-item"><a class="nav-link smooth-scroll"
                                                 href="#experience">{% trans "Experience" %}</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">{% trans "Contact" %}</a>
-                        </li>
                         <form action="/i18n/setlang/" method="post">
                             {% csrf_token %}
                             <input name="next" type="hidden" value="{{ request.path }}"/>
@@ -372,33 +370,6 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
-        </div>
-        <div class="section" id="contact">
-            <div class="cc-contact-information">
-                <div class="container">
-                    <div class="cc-contact">
-                        <div class="row justify-content-center">
-                            <div class="col-md-9">
-                                <div class="card mb-0" data-aos="zoom-in">
-                                    <div class="h4 text-center title">{% trans "Contact" %}</div>
-                                    <div class="row justify-content-center">
-                                        <div class="col-md-6">
-                                            <div class="card-body">
-                                                <p class="mb-0"><strong>{% trans "Address" %}</strong></p>
-                                                <p class="pb-2">{{ person.address }}</p>
-                                                <p class="mb-0"><strong>{% trans "Phone" %}</strong></p>
-                                                <p class="pb-2">{{ person.phone }}</p>
-                                                <p class="mb-0"><strong>{% trans "Email" %}</strong></p>
-                                                <p>{{ person.email }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
