@@ -165,53 +165,33 @@
         <div class="section" id="skill">
             <div class="container">
                 <div class="h4 text-center mb-4 title">{% trans "Skills" %}</div>
-                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                <div class="card skills-chip-card">
                     <div class="card-body">
-                        <div class="row">
-                            {% for skill in skills %}
-                                {% if forloop.counter|divisibleby:"2" %}
-                                    <div class="col-md-6">
-                                        <div class="progress-container progress-primary"><span
-                                                class="progress-badge">{{ skill.title }} </span>
-                                            <div class="progress"
-                                                 style="background: {{ skill.type_skill.bg_color }}">
-                                                <div class="progress-bar progress-bar-primary" data-aos="progress-full"
-                                                     data-aos-offset="10" data-aos-duration="2000" role="progressbar"
-                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: {{ skill.percent }}%; background: {{ skill.type_skill.color }}"></div>
-                                                <span class="progress-value">{{ skill.percent }}%</span>
-                                            </div>
-                                        </div>
+                        {% regroup skills by type_skill as skill_groups %}
+
+                        <div class="skills-chip-panel">
+                            {% for skill_group in skill_groups %}
+                                <div class="skills-chip-row">
+                                    <div class="skills-chip-heading">{{ skill_group.grouper.title }}</div>
+                                    <div class="skills-chip-list">
+                                        {% for skill in skill_group.list %}
+                                            <span class="skill-chip"
+                                                  style="border-color: {{ skill.type_skill.color }}">{{ skill.title }}</span>
+                                        {% endfor %}
                                     </div>
-                                {% else %}
-                                    <div class="col-md-6">
-                                        <div class="progress-container progress-primary"
-                                             style=><span class="progress-badge">{{ skill.title }}</span>
-                                            <div class="progress"
-                                                 style="background: {{ skill.type_skill.bg_color }}">
-                                                <div class="progress-bar progress-bar-primary" data-aos="progress-full"
-                                                     data-aos-offset="10" data-aos-duration="2000" role="progressbar"
-                                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                     style="width: {{ skill.percent }}%; background: {{ skill.type_skill.color }}"></div>
-                                                <span class="progress-value">{{ skill.percent }}%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                </div>
                             {% endfor %}
+                            {% if skills_other %}
+                                <div class="skills-chip-row">
+                                    <div class="skills-chip-heading">{% trans "Other technologies I use:" %}</div>
+                                    <div class="skills-chip-list">
+                                        {% for skill_other in skills_other %}
+                                            <span class="skill-chip">{{ skill_other.title }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
-                        {% if skills_other %}
-                            <div>
-                                <div class="h6 text-center mb-4">
-                                    {% trans "Other technologies I use:" %}
-                                </div>
-                                <div class="h4 text-center">
-                                    {% for skill_other in skills_other %}
-                                        {{ skill_other.title }},
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
