@@ -15,7 +15,7 @@ Based on the [Creative CV](https://templateflip.com/templates/creative-cv/) temp
     *   **CV Upload**: Upload a PDF version of your CV for visitors to download.
 *   **Multi-language Support**: Built-in support for English and Czech (or other languages) using `django-modeltranslation`.
 *   **Rich Text Editing**: Uses Markdown for job and project descriptions.
-*   **Cloud Storage**: Configured to use AWS S3 for static and media file storage.
+*   **Optional Cloud Storage**: Can use AWS S3 for static and media file storage.
 *   **Responsive Design**: Fully responsive layout based on Bootstrap.
 
 ## Tech Stack
@@ -23,7 +23,7 @@ Based on the [Creative CV](https://templateflip.com/templates/creative-cv/) temp
 *   **Backend**: Python 3, Django 5
 *   **Database**: PostgreSQL
 *   **Frontend**: HTML5, CSS3, Bootstrap 4, jQuery
-*   **Storage**: AWS S3 (via `django-storages` and `boto3`)
+*   **Storage**: Local filesystem for development, optional AWS S3 via `django-storages` and `boto3`
 *   **Utilities**: `django-environ` for configuration, `django-modeltranslation` for i18n.
 
 ## Getting Started
@@ -59,23 +59,40 @@ Follow these steps to get a local copy up and running.
     ```
 
 4.  **Configure Environment Variables**
-    Create a `.env` file in the `MyDjangoPortfolio` directory (alongside `settings.py`) or use the provided example:
+    Create a `.env` file in the repository root or use the provided example:
     ```sh
-    cp .env.example MyDjangoPortfolio/.env
+    cp .env.example .env
     ```
     
-    Update the `.env` file with your specific configuration:
+    The example file is set up for local development with SQLite and local file storage:
     ```ini
-    DATABASE_URL=postgres://user:password@localhost:5432/dbname
-    SECRET_KEY=your_secret_key
     DJANGO_DEBUG=True
-    ALLOWED_HOSTS=127.0.0.1,localhost
-    
-    # AWS S3 Settings (Optional for local dev, required for production storage)
-    AWS_ACCESS_KEY_ID=your_access_key
-    AWS_SECRET_ACCESS_KEY=your_secret_key
-    AWS_STORAGE_BUCKET_NAME=your_bucket_name
+    DATABASE_URL=sqlite:///db.sqlite3
+    USE_S3=False
     ```
+
+    For production, use real environment values and do not use the local placeholder `SECRET_KEY`:
+    ```ini
+    SECRET_KEY=your_real_secret_key
+    DJANGO_DEBUG=False
+    ALLOWED_HOSTS=example.com,www.example.com
+    CSRF_TRUSTED_ORIGINS=https://example.com,https://www.example.com
+    DATABASE_URL=postgres://user:password@host:5432/dbname
+
+    # Enable only when this deployment should use AWS S3.
+    USE_S3=True
+    AWS_ACCESS_KEY_ID=your_access_key
+    AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+    AWS_STORAGE_BUCKET_NAME=your_bucket_name
+
+    # Enable after HTTPS is correctly configured.
+    SECURE_SSL_REDIRECT=True
+    SESSION_COOKIE_SECURE=True
+    CSRF_COOKIE_SECURE=True
+    SECURE_HSTS_SECONDS=0
+    ```
+
+    If the app runs behind a proxy that terminates HTTPS, such as Heroku or many load balancers, set `USE_X_FORWARDED_PROTO=True` after confirming the proxy controls the `X-Forwarded-Proto` header.
 
 5.  **Apply Database Migrations**
     ```sh
@@ -96,6 +113,17 @@ Follow these steps to get a local copy up and running.
 8.  **Visit the App**
     *   Portfolio: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
     *   Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+### Deployment Checks
+
+Before deploying, run:
+
+```sh
+python manage.py check
+python manage.py check --deploy
+```
+
+The settings intentionally fail startup when `DJANGO_DEBUG=False` is combined with unsafe values such as a placeholder `SECRET_KEY`, missing `DATABASE_URL`, empty `ALLOWED_HOSTS`, wildcard hosts, or incomplete S3 credentials when `USE_S3=True`.
 
 ## Usage
 

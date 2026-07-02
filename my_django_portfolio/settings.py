@@ -10,20 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-# TODO: Finish setting up settings - .env, media, static..
-
 import os
 import environ
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-ENV_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
-env.read_env(os.path.join(ENV_DIR, "MyDjangoPortfolio/.env"))
+env.read_env(str(BASE_DIR / ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -33,9 +31,74 @@ env.read_env(os.path.join(ENV_DIR, "MyDjangoPortfolio/.env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DJANGO_DEBUG", cast=bool, default=False)
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = [host for host in env.list("ALLOWED_HOSTS", default=[]) if host]
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in env.list("CSRF_TRUSTED_ORIGINS", default=[]) if origin
+]
+
+DATABASE_URL = env("DATABASE_URL", default="")
+USE_S3 = env.bool("USE_S3", default=False)
+
+
+def validate_production_settings():
+    if DEBUG:
+        return
+
+    errors = []
+    secret_key = SECRET_KEY.strip()
+
+    if (
+        len(secret_key) < 50
+        or len(set(secret_key)) < 5
+        or secret_key.startswith("django-insecure-")
+    ):
+        errors.append(
+            "SECRET_KEY must be at least 50 characters, use at least 5 unique "
+            "characters, and not start with 'django-insecure-'."
+        )
+    if not DATABASE_URL:
+        errors.append("DATABASE_URL is required when DJANGO_DEBUG=False.")
+    if not ALLOWED_HOSTS:
+        errors.append("ALLOWED_HOSTS is required when DJANGO_DEBUG=False.")
+    if "*" in ALLOWED_HOSTS:
+        errors.append("ALLOWED_HOSTS must not contain '*' when DJANGO_DEBUG=False.")
+
+    if USE_S3:
+        required_s3_settings = [
+            "AWS_ACCESS_KEY_ID",
+            "AWS_SECRET_ACCESS_KEY",
+            "AWS_STORAGE_BUCKET_NAME",
+        ]
+        missing_s3_settings = [
+            setting for setting in required_s3_settings if not env(setting, default="")
+        ]
+        if missing_s3_settings:
+            errors.append(
+                "USE_S3=True requires: %s." % ", ".join(missing_s3_settings)
+            )
+
+    if errors:
+        raise ImproperlyConfigured(
+            "Unsafe production configuration:\n- " + "\n- ".join(errors)
+        )
+
+
+validate_production_settings()
+
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=not DEBUG)
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=not DEBUG)
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=not DEBUG)
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=0)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False
+)
+SECURE_HSTS_PRELOAD = env.bool("SECURE_HSTS_PRELOAD", default=False)
+SECURE_REFERRER_POLICY = env("SECURE_REFERRER_POLICY", default="same-origin")
+
+if env.bool("USE_X_FORWARDED_PROTO", default=False):
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Application definition
 
@@ -88,7 +151,9 @@ WSGI_APPLICATION = "my_django_portfolio.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db("DATABASE_URL"),
+    "default": env.db_url_config(
+        DATABASE_URL or f"sqlite:///{(BASE_DIR / 'db.sqlite3').as_posix()}"
+    ),
 }
 
 # Password validation
@@ -132,13 +197,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# STATIC_URL = '/static/'
+STATIC_URL = env("STATIC_URL", default="/static/")
 STATICFILES_DIRS = [
     BASE_DIR / 'core/static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = env("MEDIA_URL", default="/media/")
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
@@ -146,20 +211,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-
-AWS_LOCATION = "static"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-
-DEFAULT_FILE_STORAGE = "my_django_portfolio.storage_backends.MediaStorage"
+if USE_S3:
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default="") or None
+    AWS_S3_CUSTOM_DOMAIN = (
+        env("AWS_S3_CUSTOM_DOMAIN", default="")
+        or "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+    )
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
+    AWS_LOCATION = env("AWS_LOCATION", default="") or "static"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    DEFAULT_FILE_STORAGE = "my_django_portfolio.storage_backends.MediaStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
