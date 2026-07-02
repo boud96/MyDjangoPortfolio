@@ -5303,8 +5303,7 @@ a.credit {
 
 
 .highlighted-card {
-
-    border:  5px solid #ffb900; /* Orange border */
+    border:  1px solid #ffb900; /* Orange border */
 }
 
 .skills-chip-card {
