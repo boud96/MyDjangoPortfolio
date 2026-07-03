@@ -2320,6 +2320,7 @@ p {
 
 body {
   color: #ffffff;
+  background: #1e1f22;
   font-size: 14px;
   font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
@@ -5281,8 +5282,37 @@ a.credit {
   cursor: pointer; }
 
 /* Common Style */
+#ascii-background {
+  display: block;
+  height: 100%;
+  inset: 0;
+  left: 0;
+  opacity: 0.58;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
 .section {
   padding-bottom: 0; }
+
+.page-header .container,
+.page-header > .section {
+  position: relative;
+  z-index: 2;
+}
+
+.page-header > .section {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ascii-background {
+    display: none;
+  }
+}
 
 .photo-grid {
   display: grid; /* Establish a grid container */

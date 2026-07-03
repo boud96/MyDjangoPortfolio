@@ -22,6 +22,7 @@
     </noscript>
 </head>
 <body id="top">
+
 <header>
     <div class="profile-page sidebar-collapse">
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400">
@@ -75,6 +76,9 @@
         <div class="profile-page">
             <div class="wrapper">
                 <div class="page-header page-header-small" filter-color="green">
+                    <canvas id="ascii-background"
+                            data-name="{{ person.first_name }} {{ person.last_name }}"
+                            aria-hidden="true"></canvas>
                     <div class="container">
                         <div class="content-center">
                             <div class="cc-profile-image"><a href="#"><img
@@ -387,5 +391,6 @@
 <script src="{% static 'js/now-ui-kit.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'scripts/main.js' %}"></script>
+<script type="module" src="{% static 'scripts/ascii-background.js' %}"></script>
 </body>
 </html>
