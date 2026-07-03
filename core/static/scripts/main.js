@@ -6,6 +6,22 @@ $(document).ready(function() {
     // uncomment below for on-scroll animations to played only once
     // once: true  
   }); // initialize animate on scroll library
+
+  $('#personalGalleryModal').on('show.bs.modal', function(event) {
+    var index = parseInt($(event.relatedTarget).data('photo-index'), 10);
+    var carousel = $('#personalGalleryCarousel');
+
+    carousel.carousel({
+      interval: false,
+      ride: false
+    });
+
+    if (!isNaN(index)) {
+      carousel.carousel(index);
+    }
+
+    carousel.carousel('pause');
+  });
 });
 
 // Smooth scroll for links with hashes

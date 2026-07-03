@@ -61,16 +61,6 @@ class IndexView(View):
         return color + "55"
 
 
-class IndexTestView(View):  # TODO: This is just temp test
-    def get(self, request):
-        person = PersonalInfo.objects.all().first()
-        jobs = Job.objects.all()
-        educations = Education.objects.all()
-        skills = Skill.objects.all()
-        context = {"person": person, "jobs": jobs, "educations": educations, "skills": skills}
-        return render(request, "templates/indextest.html", context)
-
-
 class DownloadCVView(View):
     def get(self, request, *args, **kwargs):
         try:
