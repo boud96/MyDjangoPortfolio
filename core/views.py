@@ -4,7 +4,6 @@ import markdown
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import FileResponse, Http404
 from django.shortcuts import render
-from django.utils import timezone
 from django.views import View
 
 from core.models import (
@@ -22,7 +21,6 @@ from core.models import (
 class IndexView(View):
     def get(self, request):
         person = PersonalInfo.objects.get(active=True)
-        person.age = (timezone.now().date() - person.date_of_birth).days // 365
         person.about_me = markdown.markdown(person.about_me)
 
         socials = SocialMediaAccount.objects.filter(owner=person)

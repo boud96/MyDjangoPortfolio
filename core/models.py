@@ -3,6 +3,7 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.utils import timezone
 from markdownfield.models import MarkdownField
 from markdownfield.validators import VALIDATOR_STANDARD
 
@@ -26,6 +27,14 @@ class PersonalInfo(models.Model):
 
     def __str__(self):
         return self.identifier
+
+    @property
+    def age(self):
+        today = timezone.localdate()
+        return today.year - self.date_of_birth.year - (
+            (today.month, today.day)
+            < (self.date_of_birth.month, self.date_of_birth.day)
+        )
 
     class Meta:
         ordering = ['-created_on']
