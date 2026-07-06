@@ -1,11 +1,14 @@
 import uuid
+from io import BytesIO
 
+from django.core.files.base import ContentFile
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 from markdownfield.models import MarkdownField
 from markdownfield.validators import VALIDATOR_STANDARD
+from PIL import Image, ImageOps
 
 
 class PersonalInfo(models.Model):
@@ -125,13 +128,71 @@ class Project(models.Model):
 
 
 class Photo(models.Model):
+    THUMBNAIL_SIZE = (360, 360)
+
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='photos/')
+    thumbnail = models.ImageField(
+        upload_to='photos/thumbnails/',
+        blank=True,
+        null=True,
+        editable=False,
+    )
     order = models.IntegerField(default=1, validators=[MinValueValidator(1)], unique=True)
 
     def __str__(self):
         return self.title
+
+    @property
+    def thumbnail_url(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        return self.image.url
+
+    def save(self, *args, **kwargs):
+        old_image_name = None
+        if self.pk:
+            old_photo = Photo.objects.filter(pk=self.pk).only("image").first()
+            if old_photo:
+                old_image_name = old_photo.image.name
+
+        super().save(*args, **kwargs)
+
+        image_changed = old_image_name != self.image.name
+        if self.image and (image_changed or not self.thumbnail):
+            self.generate_thumbnail()
+
+    def generate_thumbnail(self):
+        self.image.open("rb")
+        try:
+            with Image.open(self.image) as image:
+                image = ImageOps.exif_transpose(image)
+                image.thumbnail(self.THUMBNAIL_SIZE, Image.Resampling.LANCZOS)
+
+                if image.mode not in ("RGB", "L"):
+                    image = image.convert("RGB")
+
+                thumbnail_buffer = BytesIO()
+                image.save(
+                    thumbnail_buffer,
+                    format="JPEG",
+                    quality=82,
+                    optimize=True,
+                )
+        finally:
+            self.image.close()
+
+        if self.thumbnail:
+            self.thumbnail.storage.delete(self.thumbnail.name)
+
+        thumbnail_name = f"{self.pk}.jpg"
+        self.thumbnail.save(
+            thumbnail_name,
+            ContentFile(thumbnail_buffer.getvalue()),
+            save=False,
+        )
+        Photo.objects.filter(pk=self.pk).update(thumbnail=self.thumbnail.name)
 
     class Meta:
         ordering = ['-order']

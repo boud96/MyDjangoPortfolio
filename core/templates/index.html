@@ -303,7 +303,7 @@
                                         data-target="#personalGalleryModal"
                                         data-photo-index="{{ forloop.counter0 }}"
                                         aria-label="{% trans 'Open photo' %}: {{ photo.title }}">
-                                    <img src="{{ photo.image.url }}" alt="{{ photo.title }}"/>
+                                    <img src="{{ photo.thumbnail_url }}" alt="{{ photo.title }}"/>
                                 </button>
                             {% endfor %}
                         </div>
